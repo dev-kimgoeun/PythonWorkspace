@@ -1,5 +1,5 @@
-import matplotlib.pyplot as plt
-plt.rcParams['font.family'] = 'Malgun Gothic'
+# import matplotlib.pyplot as plt
+# plt.rcParams['font.family'] = 'Malgun Gothic'
 
 
 print(5)
