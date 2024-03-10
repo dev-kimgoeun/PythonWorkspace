@@ -87,3 +87,35 @@ with open("study.txt","w",encoding="utf8") as study_file:
 
 with open("study.txt","r", encoding="utf8") as study_file:
     print(study_file.read())
+
+
+#주간보고서
+    
+for i in range(1,51):
+    with open(str(i) +"주차.txt", "w", encoding="utf8") as report_file :
+        report_file.write("- {0}주차 주간보고 - ".format(i))
+        report_file.write("\n부서 : ")
+        report_file.write("\n이름 : ")
+        report_file.write("\n업무 요약 : ")
+
+with open("1주차.txt","w",encoding="utf8") as report_file :
+    report_file.write(" - 1주차 주간보고 - ")
+    report_file.write("\n부서 : ")
+    report_file.write("\n이름 : ")
+    report_file.write("\n업무 요약 : ")
+
+
+#셀프체크 각 반의 정보 출력
+with open("class.txt", "w", encoding="utf8") as class_file:
+    class_file.write("초록반 5세 20명\n")
+    class_file.write("파랑반 6세 18명\n")
+    class_file.write("노랑반 7세 22명\n")
+
+with open("class.txt", "r", encoding="utf8") as f:
+    txt = f.read()
+    words = txt.split()
+    
+for word in words :
+    print(word, end=" ")
+    if word.endswith("명"):
+        print()
