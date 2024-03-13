@@ -33,30 +33,31 @@ attack(tank_name, "1시", tank_damage)
 attack(tank2_name, "1시", tank2_damage)
 
 class Unit :
-    def __init__(self, name, hp, damage):
+    def __init__(self, name, hp, speed):
         self.name = name 
         self.hp = hp
-        self.damage = damage
-        print("{0} 유닛을 생성했습니다.".format(self.name))
-        print("체력 {0}, 공격력 {1}".format(self.hp, self.damage))
+        self.speed = speed
 
-soldier1 = Unit("보병", 40, 5)
-soldier2 = Unit("보병", 40, 5)
-tank = Unit("탱크",150, 35)
+    def move(self, location):
+        print("[지상 유닛 이동]")
+        print("{0} : {1} 방향으로 이동합니다. [속도 {2}]".format(self.name, location, self.speed))
 
-stealth1 = Unit("전투기", 80, 5)
-print("유닛 이름: {0}, 공격력 : {1}".format(stealth1.name, stealth1.damage))
+# soldier1 = Unit("보병", 40, 5)
+# soldier2 = Unit("보병", 40, 5)
+# tank = Unit("탱크",150, 35)
 
-stealth2 = Unit("업그레이드한 전투기", 80, 5)
-stealth2.cloacking = True
+# stealth1 = Unit("전투기", 80, 5)
+# # print("유닛 이름: {0}, 공격력 : {1}".format(stealth1.name, stealth1.damage))
 
-if stealth2.cloacking == True:
-    print("{0}는 현재 은폐 상태입니다.".format(stealth2.name))
+# stealth2 = Unit("업그레이드한 전투기", 80, 5)
+# stealth2.cloacking = True
 
-class AttackUnit:
-    def __init__(self, name, hp, damage):
-        self.name = name
-        self.hp = hp
+# if stealth2.cloacking == True:
+#     print("{0}는 현재 은폐 상태입니다.".format(stealth2.name))
+
+class AttackUnit(Unit):
+    def __init__(self, name, hp, damage, speed):
+        Unit.__init__(self, name, hp, speed)
         self.damage = damage
     
     def attack(self, location):
@@ -69,8 +70,35 @@ class AttackUnit:
         if self.hp <= 0:
             print("{0} : 파괴됐습니다.".format(self.name))
 
-flamethrower1 =AttackUnit("화염방사병", 50, 16)
-flamethrower1.attack("5시")
+# flamethrower1 =AttackUnit("화염방사병", 50, 16)
+# flamethrower1.attack("5시")
 
-flamethrower1.damaged(25)
-flamethrower1.damaged(25)
+# flamethrower1.damaged(25)
+# flamethrower1.damaged(25)
+
+class Flyable :
+    def __init__(self, flying_speed):
+        self.flying_speed = flying_speed
+
+    def fly(self, name, location):
+        print("{0} : {1} 방향으로 날아갑니다. [속도 {2}]".format(name, location, self.flying_speed))
+
+class FlyableAttackUnit(AttackUnit, Flyable):
+    def __init__(self, name, hp, damage, flying_speed):
+        AttackUnit.__init__(self,name, hp, damage, 0)
+        Flyable.__init__(self, flying_speed)
+    
+    def move(self, location):
+        print("[공중유닛이동]")
+        self.fly(self.name, location)
+
+intercepter = FlyableAttackUnit("요격기",200,6,5)
+intercepter.fly(intercepter.name, "3시")
+
+hoverbike = AttackUnit("호버 바이크", 80,20,10)
+spacecruiser = FlyableAttackUnit("우주 순양함", 500, 25, 3)
+
+hoverbike.move("11시")
+# spacecruiser.fly(spacecruiser.name, "9시")
+spacecruiser.move("9시")
+
